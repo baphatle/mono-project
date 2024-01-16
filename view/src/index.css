@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,500&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+  font-family: "Montserrat", Arial, Helvetica, sans-serif;
+}
+
+:root {
+  --color-dark-blue: #202040;
+  --color-medium-blue: #6666cc;
+  --color-light-blue: #66ccff;
+  --color-light-yellow: #ffff66;
+  --color-light-gray: white;
+  --fs-large: 2.5rem;
+  --fs-medium: 1.8rem;
+  --fs-small: 1.6rem;
+}
+
+body {
+  background-color: var(--color-dark-blue);
+  color: var(--color-light-blue);
+  font-size: var(--fs-small);
+}
+
+.Container {
+  max-width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.btn {
+  padding: 1rem 3rem;
+  color: inherit;
+  background-color: var(--color-dark-blue);
+  border: 1px solid var(--color-light-gray);
+  border-radius: 3px;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: var(--fs-medium);
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: var(--corlor-light-blue) 0px 3px 0px;
+
+}
+
+.btn:hover {
+  color: black;
+  background-color: var(--corlor-light-blue);
+  box-shadow: var(--corlor-light-blue) 0px 0px 0px;
+  transform: translateY(3px);
+}

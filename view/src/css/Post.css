@@ -1,0 +1,53 @@
+.post-section {
+    margin-top: 4rem;
+}
+
+.post-item {
+    margin-top: 2ream;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: var(--color-medium-blue);
+
+}
+
+.post-footer {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.post-infors span:not(:last-child) {
+    margin-right: 1rem;
+    text-decoration: underline;
+}
+
+.post-edit-delete {
+    display: inline-block;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.post-edit-delete span:not(:last-child) {
+    margin-right: 1rem;
+}
+
+
+.delete-question {
+    color: var(--color-light-yellow)
+}
+
+form.edit-form {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+form.edit-form textarea.content {
+    background-color: var(--color-light-blue);
+    color: black;
+}
+
+form.edit-form .btn-container {
+    align-self: flex-end;
+}
