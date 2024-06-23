@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react'
-import axios from'axios'
+import axios from 'axios'
 import AppConext from './AppContext.js'
 
 export default function PostItem({ post }) {
-    const {dispatch} = useContext(AppConext)
+    const { dispatch } = useContext(AppConext)
     const [postToEdit, setPostToEdit] = useState(post)
-    const [ openEditForm, setOpenEditForm ] = useState(false)
-    const [ openDeleteConfirm, setOpenDeleteConfirm ]  = useState(false)
+    const [openEditForm, setOpenEditForm] = useState(false)
+    const [openDeleteConfirm, setOpenDeleteConfirm] = useState(false)
     let date = new Date(post.createdAt)
 
     const updatePost = async () => {
@@ -17,12 +17,12 @@ export default function PostItem({ post }) {
                 method: 'put',
                 url: `/api/v1/post/${post._id}`,
                 data: postToEdit,
-                headers : {
+                headers: {
                     Authorization: `Bearer ${token}`,
                 },
             }
             await axios(option)
-            dispatch({ type: "UPDATE_POST", payload: {...postToEdit} })
+            dispatch({ type: "UPDATE_POST", payload: { ...postToEdit } })
         } catch (error) {
             console.log(error.response)
         }
@@ -34,7 +34,7 @@ export default function PostItem({ post }) {
             const option = {
                 method: 'delete',
                 url: `/api/v1/post/${post._id}`,
-                headers : {
+                headers: {
                     Authorization: `Bearer ${token}`,
                 },
             }
@@ -44,7 +44,7 @@ export default function PostItem({ post }) {
             console.log(error.response)
         }
     }
- 
+
     return (
         <div>
             <div className="post-item">
@@ -63,13 +63,13 @@ export default function PostItem({ post }) {
                             {openDeleteConfirm ? (
                                 <>
                                     <span className="delete-question">Are you sure?</span>
-                                    <span onClick= {deletePost} >Yes</span>
+                                    <span onClick={deletePost} >Yes</span>
                                     <span onClick={() => setOpenDeleteConfirm(false)}>No</span>
                                 </>
                             ) : (
                                 <>
-                                    <span onClick= { () => setOpenEditForm(true) } >Edit</span>
-                                    <span onClick={ () => setOpenDeleteConfirm(true) }>Delete</span>
+                                    <span onClick={() => setOpenEditForm(true)} >Edit</span>
+                                    <span onClick={() => setOpenDeleteConfirm(true)}>Delete</span>
                                 </>
                             )}
                         </div>
@@ -79,12 +79,12 @@ export default function PostItem({ post }) {
                     <div className="post-edit-form" >
                         <form className="edit-form">
                             <textarea type="text" name="content" id="content" className="content"
-                                placeholder="What's happening?" value={postToEdit.content} const onChange = {(e) => {
+                                placeholder="What's happening?" value={postToEdit.content} const onChange={(e) => {
                                     setPostToEdit({ ...postToEdit, content: e.target.value })
-                                  }}></textarea>
+                                }}></textarea>
                             <div className="btn-container">
-                                <button className="btn" type="button" onClick= {updatePost} >Update</button>
-                                <button className="btn" type="button" onClick={ () => setOpenEditForm(false) }>Cancel</button>
+                                <button className="btn" type="button" onClick={updatePost} >Update</button>
+                                <button className="btn" type="button" onClick={() => setOpenEditForm(false)}>Cancel</button>
                             </div>
                         </form>
                     </div>

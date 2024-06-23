@@ -5,7 +5,7 @@ export default function reducer(state, action) {
         case "GET_ALL_POSTS":
             return { ...state, posts: action.payload };
         case "CREATE_ONE_POST":
-            return { ...state, posts: [...state.posts, action.payload] };
+            return { ...state, posts: [action.payload, ...state.posts] };
         case "UPDATE_POST":
             return {
                 ...state,
@@ -13,7 +13,7 @@ export default function reducer(state, action) {
                     post._id === action.payload._id
                         ? { ...post, ...action.payload }
                         : post
-                ),  
+                ),
             };
         case "DELETE_POST":
             return {

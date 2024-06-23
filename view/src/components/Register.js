@@ -28,7 +28,11 @@ export default function Register() {
       dispatch({ type: "CURRENT_USER", payload: { userName } })
       history("/")
     } catch (error) {
-      setErrorMessage(error.response.data.message)
+      if (error.response && error.response.data && error.response.data.message) {
+        setErrorMessage(Array.isArray(error.response.data.message) ? error.response.data.message.join(', ') : error.response.data.message);
+      } else {
+        setErrorMessage('Passoword must be at least 6 characters');
+      }
     }
   }
 

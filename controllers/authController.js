@@ -8,7 +8,7 @@ const APP_SECRET = process.env.APP_SECRET
 
 export const register = async (req, res) => {
    try {
-        const userExists = await User.findOne({emaul: req.body.email})
+        const userExists = await User.findOne({email: req.body.email})
             if(userExists){
                 return res.status(400).json({
                     message: "Used email"

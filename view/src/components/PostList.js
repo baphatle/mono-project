@@ -20,7 +20,7 @@ export default function PostList() {
             console.log(error)
         }
     }, [dispatch])
-        useEffect(() => {
+        useEffect(() => { 
             getAllPosts()
     }, [getAllPosts])
     const newPosts = posts.map((post) => {

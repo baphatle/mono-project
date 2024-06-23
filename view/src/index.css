@@ -14,13 +14,15 @@ html {
 :root {
   --color-dark-blue: #202040;
   --color-medium-blue: #6666cc;
-  --color-light-blue: #66ccff;
+  /* --color-light-blue: #66ccff; */
+  --color-light-blue: #add8e6;
   --color-light-yellow: #ffff66;
   --color-light-gray: white;
   --fs-large: 2.5rem;
   --fs-medium: 1.8rem;
   --fs-small: 1.6rem;
 }
+
 
 body {
   background-color: var(--color-dark-blue);

@@ -8,6 +8,13 @@ export default function Form() {
     const { user } = state
     const [postInput, setPostInput] = useState({ content: "" })
     const [errorMessage, setErrorMessage] = useState(null)
+    const [hasContent, setHasContent] = useState(false);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setPostInput({ ...postInput, [name]: value });
+        setHasContent(!!value.trim());
+    }
 
     const onSubmitHandle = async (e) => {
         try {
@@ -26,6 +33,7 @@ export default function Form() {
             const author = { _id: post.author, name: user.userName }
             dispatch({ type: "CREATE_ONE_POST", payload: { ...post, author, isEditable: true } })
             setPostInput({ content: "" })
+            setHasContent(false);
         } catch (error) {
             setErrorMessage(error.response.data.message)
         }
@@ -33,18 +41,25 @@ export default function Form() {
     return (
         <section className="form-section">
             {user ? (
-                <>
-                    <form className="form" onSubmit={onSubmitHandle}>
-                        {errorMessage && (
-                            <div className="error-message">Error: {errorMessage}</div>
-                        )}
-                        <textarea type="text" name="content" id="content" class="content"
-                            placeholder="What's happening?" value={postInput.content} onChange={(e) => {
-                                setPostInput({ ...postInput, [e.target.name]: e.target.value })
-                            }} ></textarea>
-                        <button className="btn" type="submit">Post</button>
-                    </form>
-                </>
+                <form className="form" onSubmit={onSubmitHandle}>
+                    {errorMessage && (
+                        <div className="error-message">Error: {errorMessage}</div>
+                    )}
+                    <textarea
+                        type="text"
+                        name="content"
+                        id="content"
+                        className="content"
+                        placeholder="Bạn đang nghĩ gì?"
+                        value={postInput.content}
+                        onChange={handleChange}
+                    ></textarea>
+                    {hasContent && ( 
+                        <button className="btn" type="submit">
+                            Post
+                        </button>
+                    )}
+                </form>
             ) : (
                 <>
                     <h3>All Posts:</h3>

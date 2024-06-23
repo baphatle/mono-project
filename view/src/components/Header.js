@@ -13,7 +13,7 @@ export default function Header() {
     return (
         <div>
             <header className="header">
-                <h1 className="logo"><Link to="/">Mono</Link></h1>
+                <h1 className="logo"><Link to="/">Multi's house</Link></h1>
                 <nav>
                     <ul className="main-nav">
                         {user ? (
