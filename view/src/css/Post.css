@@ -1,13 +1,16 @@
 .post-section {
     margin-top: 4rem;
+    /* display: flex;
+    justify-content: center; */
 }
 
 .post-item {
-    margin-top: 2ream;
+    margin-top: 2rem;
     margin-bottom: 2rem;
-    padding: 1rem;
+    padding: 2rem;
     background-color: var(--color-medium-blue);
-
+    border-radius: 20px;
+   
 }
 
 .post-footer {

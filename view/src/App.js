@@ -36,8 +36,10 @@ function App() {
   return (
     <Router>
       <AppContext.Provider value={{ state, dispatch }}>
+        <div className="Header">
+        <Header />
+          </div>
         <div className="Container">
-          <Header />
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/register" element={<Register />} />
