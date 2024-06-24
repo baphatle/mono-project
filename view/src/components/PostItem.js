@@ -48,33 +48,35 @@ export default function PostItem({ post }) {
     return (
         <div>
             <div className="post-item">
+                <div className="post-footer">
+                    <div className="post-infors">
+                        <span className="post-author">{post.author.name}</span>
+                        <span>{`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`}</span>
+                    </div>
+                    <div className="post-footer">
+
+                        {post.isEditable && (
+                            <div className="post-edit-delete">
+                                {openDeleteConfirm ? (
+                                    <>
+                                        <span className="delete-question">Are you sure?</span>
+                                        <span onClick={deletePost} >Yes</span>
+                                        <span onClick={() => setOpenDeleteConfirm(false)}>No</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <span onClick={() => setOpenEditForm(true)} >Edit</span>
+                                        <span onClick={() => setOpenDeleteConfirm(true)}>Delete</span>
+                                    </>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                </div>
                 <p className="post-content">
                     {post.content}
                 </p>
-                <div className="post-footer">
-                    <div className="post-footer">
-                        <div className="post-infors">
-                            <span>by {post.author.name}</span>
-                            <span>Date: {`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`}</span>
-                        </div>
-                    </div>
-                    {post.isEditable && (
-                        <div className="post-edit-delete">
-                            {openDeleteConfirm ? (
-                                <>
-                                    <span className="delete-question">Are you sure?</span>
-                                    <span onClick={deletePost} >Yes</span>
-                                    <span onClick={() => setOpenDeleteConfirm(false)}>No</span>
-                                </>
-                            ) : (
-                                <>
-                                    <span onClick={() => setOpenEditForm(true)} >Edit</span>
-                                    <span onClick={() => setOpenDeleteConfirm(true)}>Delete</span>
-                                </>
-                            )}
-                        </div>
-                    )}
-                </div>
+
                 {openEditForm && (
                     <div className="post-edit-form" >
                         <form className="edit-form">

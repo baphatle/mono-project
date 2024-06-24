@@ -10,25 +10,30 @@
     padding: 2rem;
     background-color: var(--color-medium-blue);
     border-radius: 20px;
-   
 }
 
 .post-footer {
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
     display: flex;
     justify-content: space-between;
-    margin-top: 1rem;
+    margin-top: 0;
+    margin-bottom: 12px;
 }
 
 .post-infors span:not(:last-child) {
     margin-right: 1rem;
-    text-decoration: underline;
+    /* text-decoration: underline; */
+}
+
+.post-author {
+    font-size: large;
 }
 
 .post-edit-delete {
     display: inline-block;
     text-decoration: underline;
     cursor: pointer;
+
 }
 
 .post-edit-delete span:not(:last-child) {
