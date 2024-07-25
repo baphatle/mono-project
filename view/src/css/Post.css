@@ -13,7 +13,6 @@
 }
 
 .post-footer {
-    /* margin-top: 1rem; */
     display: flex;
     justify-content: space-between;
     margin-top: 0;
@@ -58,4 +57,24 @@ form.edit-form textarea.content {
 
 form.edit-form .btn-container {
     align-self: flex-end;
+}
+
+.post-like {
+    position: relative;
+    width: 50px;
+    height: 50px
+}
+
+.like-btn {
+    position: absolute;
+}
+
+.interaction-btn {
+    width: auto;
+    height: 25px;
+    margin-top: 15px;
+}
+
+.cmt-btn {
+    margin-left: 40px;
 }
