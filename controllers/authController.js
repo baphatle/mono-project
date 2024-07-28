@@ -7,38 +7,38 @@ dotenv.config()
 const APP_SECRET = process.env.APP_SECRET
 
 export const register = async (req, res) => {
-   try {
-        const userExists = await User.findOne({email: req.body.email})
-            if(userExists){
-                return res.status(400).json({
-                    message: "Used email"
+    try {
+        const userExists = await User.findOne({ email: req.body.email })
+        if (userExists) {
+            return res.status(400).json({
+                message: "Used email"
             })
         }
 
         const user = await User.create(req.body)
-        const token = jwt.sign({userId: user._id}, APP_SECRET)
+        const token = jwt.sign({ userId: user._id }, APP_SECRET)
         res.status(200).json({
             message: "Success",
-            data: {token, userName: user.name}
+            data: { token, userName: user.name }
         })
-   } catch (error) {
+    } catch (error) {
         res.json({
             name: error.name,
             message: error.message
         })
-   }
+    }
 }
 
 export const login = async (req, res) => {
     try {
-        const user = await User.findOne({email: req.body.email})
-        if(!user){
+        const user = await User.findOne({ email: req.body.email })
+        if (!user) {
             return res.status(400).json({
                 message: "Email is not correct"
             })
         }
-        if(bcrypt.compareSync(req.body.password, user.password)){
-            const token = jwt.sign({userId: user._id}, APP_SECRET)
+        if (bcrypt.compareSync(req.body.password, user.password)) {
+            const token = jwt.sign({ userId: user._id }, APP_SECRET)
             res.status(200).json({
                 status: "success",
                 data: {
@@ -46,7 +46,7 @@ export const login = async (req, res) => {
                     token
                 }
             })
-        }else{
+        } else {
             return res.status(400).json({
                 message: "Wrong password"
             })
@@ -62,9 +62,12 @@ export const login = async (req, res) => {
 export const getCurrentUser = async (req, res, next) => {
     try {
         const data = { user: null }
-        if(req.user){
-            const user = await User.findOne({_id: req.user.userId})
-            data.user ={userName: user.name}
+        if (req.user) {
+            const user = await User.findOne({ _id: req.user.userId })
+            data.user = {
+                userId: req.user.userId,
+                userName: user.name
+            }
         }
         res.status(200).json({
             status: "success",

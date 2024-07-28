@@ -1,23 +1,59 @@
 import Post from '../models/Post.js'
 
+// export const getAll = async (req, res) => {
+//     try {
+//         const posts = await Post.find({})
+//             .populate('author', 'name')
+//             .select('content createdAt')
+//             .sort({ createdAt: -1 });
+//         res.status(200).json({
+//             status: "success",
+//             result: posts.length,
+//             data: { posts }
+//         })
+//     } catch (error) {
+//         res.json({
+//             name: error.name,
+//             message: error.message
+//         })
+//     }
+// }
+
 export const getAll = async (req, res) => {
     try {
         const posts = await Post.find({})
-            .populate('author', 'name')
-            .select('content createdAt')
-            .sort({ createdAt: -1 });
+            .populate('author', 'name') // Populate thông tin tác giả bài viết
+            .populate({
+                path: 'comments.author',
+                select: 'name' // Populate thông tin người tạo comment
+            })
+            .select('content createdAt author likes comments') // Chỉ chọn các trường cụ thể
+            .sort({ createdAt: -1 })
+            .lean(); // Chuyển đổi sang plain JavaScript object để dễ dàng thao tác
+
+        // Tính tổng số lượt like và chuẩn bị dữ liệu trả về
+        const postsWithLikeCount = posts.map(post => ({
+            ...post,
+            likeCount: Array.isArray(post.likes) ? post.likes.length : 0, // Kiểm tra nếu post.likes là mảng
+            comments: Array.isArray(post.comments) ? post.comments.map(comment => ({
+                content: comment.content,
+                author: comment.author.name,
+                createdAt: comment.createdAt
+            })) : [] // Kiểm tra nếu post.comments là mảng
+        }));
+
         res.status(200).json({
             status: "success",
             result: posts.length,
-            data: { posts }
-        })
+            data: { posts: postsWithLikeCount }
+        });
     } catch (error) {
-        res.json({
+        res.status(500).json({
             name: error.name,
             message: error.message
-        })
+        });
     }
-}
+};
 
 
 export const createOnePost = async (req, res, next) => {
@@ -26,10 +62,17 @@ export const createOnePost = async (req, res, next) => {
         const post = await Post.create({ ...req.body, author: userId })
 
         const posts = await Post.find({})
-            .populate('author', 'name')
-            .select('content createdAt')
-            .sort({ createdAt: -1 });
-
+            // .populate('author', 'name')
+            // .select('content createdAt')
+            // .sort({ createdAt: -1 });
+            .populate('author', 'name') // Populate thông tin tác giả bài viết
+            .populate({
+                path: 'comments.author',
+                select: 'name' // Populate thông tin người tạo comment
+            })
+            .select('content createdAt author likes comments') // Chỉ chọn các trường cụ thể
+            .sort({ createdAt: -1 })
+            .lean(); // Chuyển đổi sang plain JavaScript object để dễ dàng thao tác
         res.status(200).json({
             status: "success",
             data: { post, allPosts: posts }
@@ -128,7 +171,6 @@ export const commentPost = async (req, res, next) => {
         const populatedPost = await Post.findById(postId)
             .populate('comments.author', 'name')
             .exec();
-
         res.status(200).json(post);
     } catch (error) {
         res.json({

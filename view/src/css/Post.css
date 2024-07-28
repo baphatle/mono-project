@@ -32,7 +32,6 @@
     display: inline-block;
     text-decoration: underline;
     cursor: pointer;
-
 }
 
 .post-edit-delete span:not(:last-child) {
@@ -59,7 +58,7 @@ form.edit-form .btn-container {
     align-self: flex-end;
 }
 
-.post-like {
+/* .post-like {
     position: relative;
     width: 50px;
     height: 50px
@@ -70,11 +69,29 @@ form.edit-form .btn-container {
 }
 
 .interaction-btn {
-    width: auto;
     height: 25px;
     margin-top: 15px;
 }
 
 .cmt-btn {
     margin-left: 40px;
+} */
+
+
+
+
+.interaction-icon {
+    height: 25px;
+    width: auto;
+    margin-top: 15px;
+}
+
+.interection-btn {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.licke-count {
+    margin-top: 15px;
 }

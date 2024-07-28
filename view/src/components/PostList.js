@@ -5,8 +5,8 @@ import axios from 'axios'
 import AppConext from './AppContext.js'
 
 export default function PostList() {
-    const {state, dispatch} = useContext(AppConext)
-    const {posts, user} = state
+    const { state, dispatch } = useContext(AppConext)
+    const { posts, user } = state
     const getAllPosts = useCallback(async () => {
         try {
             const option = {
@@ -16,12 +16,12 @@ export default function PostList() {
             const response = await axios(option)
             const posts = response.data.data.posts
             dispatch({ type: "GET_ALL_POSTS", payload: posts })
-        } catch (error) {   
+        } catch (error) {
             console.log(error)
         }
     }, [dispatch])
-        useEffect(() => { 
-            getAllPosts()
+    useEffect(() => {
+        getAllPosts()
     }, [getAllPosts])
     const newPosts = posts.map((post) => {
         if (user) {
@@ -37,7 +37,7 @@ export default function PostList() {
             <section className="post-section">
                 <div className="post-list">
                     {newPosts.map((post) => (
-                        <PostItem post={post} key={post._id}/>
+                        <PostItem post={post} key={post._id} />
                     ))}
                 </div>
             </section>

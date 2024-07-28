@@ -23,8 +23,8 @@ function App() {
       }
       const response = await axios(option)
       if (response.data.data.user) {
-        const { userName } = response.data.data.user
-        dispatch({ type: "CURRENT_USER", payload: { userName } })
+        const { userId, userName } = response.data.data.user
+        dispatch({ type: "CURRENT_USER", payload: { userId, userName } })
       }
     } catch (error) {
       console.log(error)
@@ -37,8 +37,8 @@ function App() {
     <Router>
       <AppContext.Provider value={{ state, dispatch }}>
         <div className="Header">
-        <Header />
-          </div>
+          <Header />
+        </div>
         <div className="Container">
           <Routes>
             <Route path="/" element={<Main />} />
