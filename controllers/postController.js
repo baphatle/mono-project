@@ -138,6 +138,8 @@ export const likePost = async (req, res, next) => {
             post.likes.push(userId);
         }
         await post.save();
+        
+        // Trả về bài viết với số lượng likes cập nhật
         res.status(200).json(post);
     } catch (error) {
         res.json({
@@ -146,6 +148,7 @@ export const likePost = async (req, res, next) => {
         })
     }
 };
+
 
 export const commentPost = async (req, res, next) => {
     const { postId } = req.params;

@@ -12,7 +12,6 @@ export default function PostItem({ post }) {
     let date = new Date(post.createdAt)
     const { user } = state
 
-
     const updatePost = async () => {
         try {
             setOpenEditForm(false)
@@ -135,7 +134,7 @@ export default function PostItem({ post }) {
                                 className="interaction-icon"
                             />
                         )}
-                        <p className="licke-count">
+                        <p className="like-count">
                             {post.likeCount}
                         </p>
                         <img
