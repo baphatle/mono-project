@@ -5,6 +5,7 @@ import AppConext from './AppContext.js'
 export default function PostItem({ post }) {
     const { state, dispatch } = useContext(AppConext)
     const [postToEdit, setPostToEdit] = useState(post)
+    const [commentContent, setCommentContent] = useState({ content: "" })
     const [openEditForm, setOpenEditForm] = useState(false)
     const [openDeleteConfirm, setOpenDeleteConfirm] = useState(false)
     const [likeClick, setLikeClick] = useState(false)
@@ -58,16 +59,52 @@ export default function PostItem({ post }) {
                     Authorization: `Bearer ${token}`,
                 },
             }
-            await axios(option)
-            dispatch({ type: "LIKE_POST", payload: { _id: post._id } })
+            // await axios(option)
+            // dispatch({ type: "LIKE_POST", payload: { _id: post._id } })
+            const response = await axios(option);
+            const { likes, likeCount } = response.data;
+            dispatch({
+                type: "LIKE_POST",
+                payload: {
+                    _id: post._id,
+                    likes: likes,
+                    likeCount: likeCount,
+                }
+            });
             setLikeClick(!likeClick)
         } catch (error) {
             console.log(error.response)
         }
     }
 
-    const handleComment = () => {
+    const handleOpenCommentForm = () => {
         setOpenCmtForm(!openCmtForm)
+    }
+
+    const addComment = async () => {
+        try {
+            setOpenCmtForm(false)
+            const token = localStorage.getItem('token')
+            const option = {
+                method: 'post',
+                url: `/api/v1/post/comment/${post._id}`,
+                data: { content: commentContent },
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+            const response = await axios(option)
+            console.log('COMMENT', response)
+            // const { post } = response.data.data
+            // const author = { _id: comments.author, name: user.userName }
+            // dispatch({ type: "ADD-COMMENT", payload: {commentContent} })
+            const updatedPost = response.data.data;
+            dispatch({ type: "ADD_COMMENT", payload: updatedPost });
+            setCommentContent("")
+            setOpenCmtForm(false)
+        } catch (error) {
+            console.log(error.response)
+        }
     }
 
     return (
@@ -138,7 +175,7 @@ export default function PostItem({ post }) {
                             {post.likeCount}
                         </p>
                         <img
-                            onClick={handleComment}
+                            onClick={handleOpenCommentForm}
                             src="/cmt.svg"
                             alt="cmt"
                             className="interaction-icon"
@@ -155,10 +192,13 @@ export default function PostItem({ post }) {
                                 id="content"
                                 className="content"
                                 placeholder="Thêm bình luận của bạn?"
+                                onChange={(e) => {
+                                    setCommentContent({ content: e.target.value })
+                                }}
                             />
                             <div className="btn-container">
                                 <button className="btn" type="button" onClick={() => setOpenCmtForm(false)}>Cancel</button>
-                                <button className="btn" type="button" onClick={() => setOpenCmtForm(false)}>Post</button>
+                                <button className="btn" type="button" onClick={addComment}>Post</button>
                             </div>
                         </form>
                     </div>

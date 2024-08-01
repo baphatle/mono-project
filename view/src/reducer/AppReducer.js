@@ -27,11 +27,35 @@ export default function reducer(state, action) {
                 posts: state.posts.filter((post) => post._id !== action.payload._id)
             };
         case "LIKE_POST":
+            // return {
+            //     ...state,
+            //     posts: state.posts.map((post) =>
+            //         post._id === action.payload._id
+            //             ? { ...post, likes: action.payload.likes }
+            //             : post
+            //     ),
+            // };
             return {
                 ...state,
                 posts: state.posts.map((post) =>
                     post._id === action.payload._id
-                        ? { ...post, likes: action.payload.likes }
+                        ? {
+                            ...post,
+                            likes: action.payload.likes,
+                            likeCount: action.payload.likeCount
+                        }
+                        : post
+                ),
+            };
+        case "ADD_COMMENT":
+            return {
+                ...state,
+                posts: state.posts.map(post =>
+                    post._id === action.payload._id
+                        ? {
+                            ...post,
+                            comments: action.payload.comments
+                        }
                         : post
                 ),
             };
