@@ -81,25 +81,29 @@ export default function PostItem({ post }) {
         setOpenCmtForm(!openCmtForm)
     }
 
-    const addComment = async () => {
+    const addComment = async (e) => {
+        e.preventDefault();
         try {
             setOpenCmtForm(false)
             const token = localStorage.getItem('token')
             const option = {
                 method: 'post',
                 url: `/api/v1/post/comment/${post._id}`,
-                data: { content: commentContent },
+                data: { commentContent },
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             }
             const response = await axios(option)
-            console.log('COMMENT', response)
-            // const { post } = response.data.data
-            // const author = { _id: comments.author, name: user.userName }
-            // dispatch({ type: "ADD-COMMENT", payload: {commentContent} })
-            const updatedPost = response.data.data;
-            dispatch({ type: "ADD_COMMENT", payload: updatedPost });
+            const updatedPost = response.data;
+            console('QQQQQQQQ', updatedPost)
+            dispatch({
+                type: 'ADD_COMMENT',
+                payload: {
+                    _id: post._id,
+                    comments: updatedPost.comments,
+                },
+            });
             setCommentContent("")
             setOpenCmtForm(false)
         } catch (error) {
@@ -192,9 +196,7 @@ export default function PostItem({ post }) {
                                 id="content"
                                 className="content"
                                 placeholder="Thêm bình luận của bạn?"
-                                onChange={(e) => {
-                                    setCommentContent({ content: e.target.value })
-                                }}
+                                onChange={(e) => setCommentContent(e.target.value)}
                             />
                             <div className="btn-container">
                                 <button className="btn" type="button" onClick={() => setOpenCmtForm(false)}>Cancel</button>
