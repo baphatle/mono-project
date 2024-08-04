@@ -56,7 +56,7 @@ export default function Form() {
                     ></textarea>
                     {hasContent && ( 
                         <button className="btn" type="submit">
-                            Post
+                            Đăng
                         </button>
                     )}
                 </form>

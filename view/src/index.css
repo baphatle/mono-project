@@ -12,8 +12,8 @@ html {
 }
 
 :root {
-  --color-dark-blue: #202040;
-  --color-medium-blue: #6666cc;
+  --color-dark-blue: #3d4c80;
+  --color-medium-blue: #202040;
   /* --color-light-blue: #66ccff; */
   --color-light-blue: #add8e6;
   --color-light-yellow: #ffff66;
@@ -26,7 +26,7 @@ html {
 
 body {
   background-color: var(--color-dark-blue);
-  color: var(--color-light-blue);
+  color: white;
   font-size: var(--fs-small);
 }
 
@@ -46,7 +46,7 @@ body {
 .btn {
   padding: 1rem 3rem;
   color: inherit;
-  background-color: var(--color-dark-blue);
+  background-color: var(--color-medium-blue);
   border: 1px solid var(--color-light-gray);
   border-radius: 3px;
   font-family: inherit;
@@ -55,12 +55,12 @@ body {
   cursor: pointer;
   transition: all 0.3s;
   box-shadow: var(--corlor-light-blue) 0px 3px 0px;
-
+  border-radius: 60px;
 }
 
 .btn:hover {
   color: black;
-  background-color: var(--corlor-light-blue);
+  background-color: var(--color-light-blue);
   box-shadow: var(--corlor-light-blue) 0px 0px 0px;
   transform: translateY(3px);
 }

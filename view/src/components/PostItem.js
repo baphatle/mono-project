@@ -81,6 +81,15 @@ export default function PostItem({ post }) {
         setOpenCmtForm(!openCmtForm)
     }
 
+    const formatContent = (content) => {
+        return content.split('\n').map((line, index) => (
+            <React.Fragment key={index}>
+                {line}
+                <br />
+            </React.Fragment>
+        ));
+    };
+
     const addComment = async (e) => {
         e.preventDefault();
         try {
@@ -140,7 +149,7 @@ export default function PostItem({ post }) {
                     </div>
                 </div>
                 <p className="post-content">
-                    {post.content}
+                    {formatContent(post.content)}
                 </p>
 
                 {openEditForm && (
@@ -151,8 +160,8 @@ export default function PostItem({ post }) {
                                     setPostToEdit({ ...postToEdit, content: e.target.value })
                                 }}></textarea>
                             <div className="btn-container">
-                                <button className="btn" type="button" onClick={updatePost} >Update</button>
                                 <button className="btn" type="button" onClick={() => setOpenEditForm(false)}>Cancel</button>
+                                <button className="btn" type="button" onClick={updatePost} >Update</button>
                             </div>
                         </form>
                     </div>
@@ -187,6 +196,17 @@ export default function PostItem({ post }) {
                     </div>
                 )}
 
+                {post.comments.map((e) => (
+                    <div className="comment-container">
+                        <p className="cmt-author">
+                            {e.author}
+                        </p>
+                        <p>
+                            {formatContent(e.content)}
+                        </p>
+                    </div>
+                ))}
+
                 {openCmtForm && (
                     <div className="post-edit-form" >
                         <form className="edit-form">
@@ -208,6 +228,6 @@ export default function PostItem({ post }) {
 
 
             </div>
-        </div>
+        </div >
     )
 }

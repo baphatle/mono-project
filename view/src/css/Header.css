@@ -3,6 +3,7 @@
     padding: 3rem 0;
     display: flex;
     justify-content: space-between;
+    /* background-color: var(--color-medium-blue); */
 }
 
 nav {

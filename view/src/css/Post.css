@@ -95,3 +95,14 @@ form.edit-form .btn-container {
 .like-count {
     margin-top: 15px;
 }
+
+.comment-container {
+    background-color: var(--color-dark-blue);
+    padding: 10px;
+    border-radius: 20px;
+    margin-top: 8px;
+}
+
+.cmt-author{
+    padding-bottom: 5px;
+}
