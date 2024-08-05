@@ -138,7 +138,7 @@ export const likePost = async (req, res, next) => {
             post.likes.push(userId);
         }
         await post.save();
-        
+
         // Trả về bài viết với số lượng likes cập nhật
         res.status(200).json(post);
     } catch (error) {
@@ -172,9 +172,24 @@ export const commentPost = async (req, res, next) => {
 
         // Thực hiện truy vấn để populate author trong comments
         const populatedPost = await Post.findById(postId)
-            .populate('comments.author', 'name')
+            .populate({
+                path: 'comments.author',
+                select: 'name' // Populate tên người tạo comment
+            })
             .exec();
-        res.status(200).json(post);
+        // res.status(200).json(post);
+        const responsePost = {
+            ...populatedPost.toObject(),
+            comments: populatedPost.comments.map(comment => ({
+                content: comment.content,
+                author: comment.author.name, // Trả về tên người tạo comment
+                createdAt: comment.createdAt,
+                _id: comment._id
+            })),
+            likesCount: populatedPost.likes.length // Thay đổi nếu cần thiết
+        };
+
+        res.status(200).json(responsePost);
     } catch (error) {
         res.json({
             name: error.name,

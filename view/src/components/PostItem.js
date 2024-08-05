@@ -62,7 +62,10 @@ export default function PostItem({ post }) {
             // await axios(option)
             // dispatch({ type: "LIKE_POST", payload: { _id: post._id } })
             const response = await axios(option);
-            const { likes, likeCount } = response.data;
+            // const { likes, likeCount } = response.data;
+            const likes = response?.data?.likes
+            const likeCount = response?.data?.likes?.length
+            console.log("handleLike response.data:", response.data);
             dispatch({
                 type: "LIKE_POST",
                 payload: {
@@ -105,7 +108,6 @@ export default function PostItem({ post }) {
             }
             const response = await axios(option)
             const updatedPost = response.data;
-            console('QQQQQQQQ', updatedPost)
             dispatch({
                 type: 'ADD_COMMENT',
                 payload: {
@@ -185,7 +187,7 @@ export default function PostItem({ post }) {
                             />
                         )}
                         <p className="like-count">
-                            {post.likeCount}
+                            {post.likeCount || 0}
                         </p>
                         <img
                             onClick={handleOpenCommentForm}

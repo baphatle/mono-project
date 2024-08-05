@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from 'react'
+import React, { useCallback, useContext, useEffect, useMemo } from 'react'
 import PostItem from './PostItem.js'
 import '../css/Post.css'
 import axios from 'axios'
@@ -23,15 +23,26 @@ export default function PostList() {
     useEffect(() => {
         getAllPosts()
     }, [getAllPosts])
-    const newPosts = posts.map((post) => {
-        if (user) {
-            return post.author.name === user.userName
-                ? { ...post, isEditable: true }
-                : post
-        } else {
-            return { ...post, isEditable: false }
-        }
-    })
+    // const newPosts = posts.map((post) => {
+    //     if (user) {
+    //         return post.author.name === user.userName
+    //             ? { ...post, isEditable: true }
+    //             : post
+    //     } else {
+    //         return { ...post, isEditable: false }
+    //     }
+    // })
+    const newPosts = useMemo(() => {
+        return posts.map((post) => {
+            if (user) {
+                return post.author.name === user.userName
+                    ? { ...post, isEditable: true }
+                    : post
+            } else {
+                return { ...post, isEditable: false }
+            }
+        });
+    }, [posts, user]);
     return (
         <div>
             <section className="post-section">

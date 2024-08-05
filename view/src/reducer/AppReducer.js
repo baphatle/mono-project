@@ -27,14 +27,7 @@ export default function reducer(state, action) {
                 posts: state.posts.filter((post) => post._id !== action.payload._id)
             };
         case "LIKE_POST":
-            // return {
-            //     ...state,
-            //     posts: state.posts.map((post) =>
-            //         post._id === action.payload._id
-            //             ? { ...post, likes: action.payload.likes }
-            //             : post
-            //     ),
-            // };
+            console.log("LIKE_POST action.payload:", action.payload);
             return {
                 ...state,
                 posts: state.posts.map((post) =>
@@ -48,6 +41,7 @@ export default function reducer(state, action) {
                 ),
             };
         case "ADD_COMMENT":
+            console.log("ADD_COMMENT action.payload:", action.payload);
             return {
                 ...state,
                 posts: state.posts.map(post =>
