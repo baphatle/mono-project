@@ -34,15 +34,22 @@ export default function PostList() {
     // })
     const newPosts = useMemo(() => {
         return posts.map((post) => {
+            console.log('User', user)
             if (user) {
-                return post.author.name === user.userName
-                    ? { ...post, isEditable: true }
-                    : post
+                if (post.author.name === user.userName) {
+                    return { ...post, isEditable: true };
+                } else if (user?.admin) {
+                    return { ...post, isDeletable: true }
+                } else {
+                    return post;
+                }
             } else {
-                return { ...post, isEditable: false }
+                return { ...post, isEditable: false };
             }
         });
     }, [posts, user]);
+
+    
     return (
         <div>
             <section className="post-section">

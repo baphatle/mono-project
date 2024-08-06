@@ -13,6 +13,8 @@ export default function PostItem({ post }) {
     let date = new Date(post.createdAt)
     const { user } = state
 
+    
+    
     const updatePost = async () => {
         try {
             setOpenEditForm(false)
@@ -146,6 +148,22 @@ export default function PostItem({ post }) {
                                     </>
                                 )}
                             </div>
+                        )}
+
+                        {post.isDeletable && (
+                             <div className="post-edit-delete">
+                             {openDeleteConfirm ? (
+                                 <>
+                                     <span className="delete-question">Are you sure?</span>
+                                     <span onClick={deletePost} >Yes</span>
+                                     <span onClick={() => setOpenDeleteConfirm(false)}>No</span>
+                                 </>
+                             ) : (
+                                 <>
+                                     <span onClick={() => setOpenDeleteConfirm(true)}>Delete</span>
+                                 </>
+                             )}
+                         </div>
                         )}
 
                     </div>

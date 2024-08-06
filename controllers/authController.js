@@ -66,7 +66,8 @@ export const getCurrentUser = async (req, res, next) => {
             const user = await User.findOne({ _id: req.user.userId })
             data.user = {
                 userId: req.user.userId,
-                userName: user.name
+                userName: user.name,
+                admin: user.admin
             }
         }
         res.status(200).json({

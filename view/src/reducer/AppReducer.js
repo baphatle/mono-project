@@ -6,6 +6,7 @@ export default function reducer(state, action) {
                 user: action.payload ? {
                     userId: action.payload.userId,
                     userName: action.payload.userName,
+                    admin: action.payload.admin,
                 } : null,
             };
         case "GET_ALL_POSTS":

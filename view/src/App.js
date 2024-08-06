@@ -23,8 +23,8 @@ function App() {
       }
       const response = await axios(option)
       if (response.data.data.user) {
-        const { userId, userName } = response.data.data.user
-        dispatch({ type: "CURRENT_USER", payload: { userId, userName } })
+        const { userId, userName, admin } = response.data.data.user
+        dispatch({ type: "CURRENT_USER", payload: { userId, userName, admin} })
       }
     } catch (error) {
       console.log(error)
