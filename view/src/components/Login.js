@@ -26,6 +26,7 @@ export default function Login() {
             localStorage.setItem('token', token)
             dispatch({ type: "CURRENT_USER", payload: { userName } })
             history("/")
+            window.location.reload()
         } catch (error) {
             setErrorMessage(error.response.data.message)
         }

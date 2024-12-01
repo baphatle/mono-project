@@ -23,6 +23,11 @@ export default function PostList() {
     useEffect(() => {
         getAllPosts()
     }, [getAllPosts])
+    useEffect(() => {
+        if (user) {
+            getAllPosts();
+        }
+    }, [user, getAllPosts]);
     // const newPosts = posts.map((post) => {
     //     if (user) {
     //         return post.author.name === user.userName
@@ -49,7 +54,7 @@ export default function PostList() {
         });
     }, [posts, user]);
 
-    
+
     return (
         <div>
             <section className="post-section">
